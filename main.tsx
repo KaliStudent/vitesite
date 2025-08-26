@@ -1,3 +1,12 @@
+// Ensure the theme stylesheet is loaded even if index.html didn't link it
+if (!document.querySelector('link[href="/public/themes.css"]')) {
+  const l = document.createElement('link');
+  l.rel = 'stylesheet';
+  l.href = '/themes.css';
+  document.head.appendChild(l);
+}
+
+// Pick any of the 20 themes
 document.documentElement.setAttribute('data-theme', 'sapphire-ice');
 import './index.css';
 import React, { StrictMode } from 'react'
