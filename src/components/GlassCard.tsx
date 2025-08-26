@@ -11,7 +11,7 @@ const GlassCard: React.FC<GlassCardProps> = ({
   intensity = 'medium', 
   className = '', 
   ...props 
-}) => {
+}) /*=> {
   const intensityClasses = {
     light: 'bg-white/10 backdrop-blur-sm border border-white/20',
     medium: 'bg-white/20 backdrop-blur-md border border-white/30',
@@ -27,6 +27,6 @@ const GlassCard: React.FC<GlassCardProps> = ({
       {children}
     </Paper>
   );
-};
+}; */
 
 export default GlassCard;
