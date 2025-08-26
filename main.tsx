@@ -19,7 +19,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
       <KombaiWrapper>
-        <Example />
       </KombaiWrapper>
     </ErrorBoundary>
   </StrictMode>,
