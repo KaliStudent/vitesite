@@ -78,4 +78,83 @@ const Navigation: React.FC = () => {
         position="fixed"
         elevation={0}
         sx={{
-          bgcolor: alpha(theme.palette.background.paper
+          bgcolor: alpha(theme.palette.background.paper, 0.80),
+          color: theme.palette.text.primary,
+          backdropFilter: 'blur(12px)',
+          borderBottom: `1px solid ${alpha(theme.palette.divider, 0.8)}`
+        }}
+      >
+        <Toolbar sx={{ px: { xs: 2, lg: 6 } }}>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            style={{ textDecoration: 'none' }}
+            sx={{
+              flexGrow: 1,
+              fontWeight: 700,
+              color: theme.palette.text.primary,
+              '&:hover': { color: theme.palette.primary.main },
+            }}
+          >
+            Portfolio
+          </Typography>
+
+          {isMobile ? (
+            <IconButton
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ color: theme.palette.text.primary }}
+            >
+              <DehazeIcon />
+            </IconButton>
+          ) : (
+            <Stack direction="row" spacing={1}>
+              {navItems.map((item) => (
+                <Button
+                  key={item.path}
+                  component={Link}
+                  to={item.path}
+                  variant={isActive(item.path) ? 'contained' : 'text'}
+                  sx={{
+                    borderRadius: 999,
+                    px: 3, py: 1,
+                    ...(isActive(item.path)
+                      ? {
+                          color: theme.palette.getContrastText(theme.palette.primary.main),
+                          background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`,
+                          boxShadow: theme.shadows[4],
+                        }
+                      : {
+                          color: theme.palette.text.primary,
+                          '&:hover': { bgcolor: alpha(theme.palette.text.primary, 0.08) },
+                        }),
+                  }}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </Stack>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        variant="temporary"
+        anchor="right"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{ keepMounted: true }}
+        PaperProps={{
+          sx: { width: 320, bgcolor: 'transparent', boxShadow: 'none' }
+        }}  // style Drawer paper via PaperProps.sx
+        sx={{ display: { md: 'none' } }}
+      >
+        {drawer}
+      </Drawer>
+    </>
+  );
+};
+
+export default Navigation;
