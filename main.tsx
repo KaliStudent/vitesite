@@ -2,7 +2,6 @@ document.documentElement.setAttribute('data-theme', 'sapphire-ice');
 import './index.css';
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Example from './src/App.portfoliotemplate'
 import KombaiWrapper from './KombaiWrapper'
 import ErrorBoundary from '@kombai/react-error-boundary'
 import './src/styles/themes.css';
