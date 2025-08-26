@@ -291,7 +291,19 @@
     }
   }
 }
-html, body { background: var(--bg) !important; color: var(--text) !important; }
+      /* Example base usage (optional): */
+html, body { background-color: var(--bg); color: var(--text); }
+.card { background-color: var(--surface); border: 1px solid var(--border); }
+.btn { background-color: var(--primary); color: #000; }
+.btn.secondary { background-color: var(--secondary); }
+.link { color: var(--accent); }
+.muted { color: var(--muted); }
+document.documentElement.getAttribute('data-theme')      // "sapphire-ice"
+getComputedStyle(document.documentElement).getPropertyValue('--bg')  // e.g. "#f5f9ff"
+
+      html, body { 
+        background: var(--bg) !important; color: var(--text) !important; 
+                 }
 
 }
 
