@@ -85,4 +85,6 @@
   &::-webkit-scrollbar-thumb:hover {
     background: #94a3b8;
   }
+  html, body { background: var(--bg) !important; color: var(--text) !important; }
 }
+
