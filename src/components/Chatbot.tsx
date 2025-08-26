@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import {
-  Fab, Dialog, DialogTitle, DialogContent, DialogActions,
-  TextField, Button, Stack, Typography, Avatar, Paper, IconButton
+  Fab,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Stack,
+  Typography,
+  Avatar,
+  Paper,
+  IconButton
 } from '@mui/material';
-import { useTheme, alpha } from '@mui/material/styles';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -16,42 +25,75 @@ interface Message {
 }
 
 const Chatbot: React.FC = () => {
-  const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([{
-    id: 1,
-    text: "Hi! I'm here to help you learn more about this portfolio. What would you like to know?",
-    sender: 'bot',
-    timestamp: new Date()
-  }]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      text: "Hi! I'm here to help you learn more about this portfolio. What would you like to know?",
+      sender: 'bot',
+      timestamp: new Date()
+    }
+  ]);
   const [inputValue, setInputValue] = useState('');
   const [showHandoff, setShowHandoff] = useState(false);
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
-    const userMessage: Message = { id: messages.length + 1, text: inputValue, sender: 'user', timestamp: new Date() };
+
+    const userMessage: Message = {
+      id: messages.length + 1,
+      text: inputValue,
+      sender: 'user',
+      timestamp: new Date()
+    };
+
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+
+    // Simulate bot response
     setTimeout(() => {
-      const botResponse = getBotResponse(userMessage.text);
-      const botMessage: Message = { id: userMessage.id + 1, text: botResponse, sender: 'bot', timestamp: new Date() };
+      const botResponse = getBotResponse(inputValue);
+      const botMessage: Message = {
+        id: messages.length + 2,
+        text: botResponse,
+        sender: 'bot',
+        timestamp: new Date()
+      };
       setMessages(prev => [...prev, botMessage]);
-      if (userMessage.text.toLowerCase().includes('contact') || userMessage.text.toLowerCase().includes('hire')) {
+
+      // Show handoff option for certain queries
+      if (inputValue.toLowerCase().includes('contact') || inputValue.toLowerCase().includes('hire')) {
         setShowHandoff(true);
       }
-    }, 600);
+    }, 1000);
   };
 
   const getBotResponse = (input: string): string => {
-    const s = input.toLowerCase();
-    if (s.includes('skills') || s.includes('technology')) return "I specialize in modern web development with React, TypeScript, Node.js, and cloud technologies. I'm passionate about creating user-friendly applications with clean, maintainable code.";
-    if (s.includes('experience') || s.includes('work')) return "I have experience building full-stack applications, working with agile teams, and delivering scalable solutions. Check out my portfolio section for detailed project examples!";
-    if (s.includes('education') || s.includes('degree')) return "I hold a degree in Computer Science and continuously update my skills through online courses and certifications.";
-    if (s.includes('contact') || s.includes('hire')) return "I'd love to discuss potential opportunities! Use the contact form, or I can connect you directly.";
-    return "Ask me about skills, experience, education, or getting in touch.";
+    const lowerInput = input.toLowerCase();
+    
+    if (lowerInput.includes('skills') || lowerInput.includes('technology')) {
+      return "I specialize in modern web development with React, TypeScript, Node.js, and cloud technologies. I'm passionate about creating user-friendly applications with clean, maintainable code.";
+    } else if (lowerInput.includes('experience') || lowerInput.includes('work')) {
+      return "I have experience building full-stack applications, working with agile teams, and delivering scalable solutions. Check out my portfolio section for detailed project examples!";
+    } else if (lowerInput.includes('education') || lowerInput.includes('degree')) {
+      return "I hold a degree in Computer Science and continuously update my skills through online courses and certifications. Lifelong learning is key in our field!";
+    } else if (lowerInput.includes('contact') || lowerInput.includes('hire')) {
+      return "I'd love to discuss potential opportunities! You can reach out through the contact form, or I can connect you directly with me for a more detailed conversation.";
+    } else {
+      return "That's a great question! I can tell you about skills, experience, education, or help you get in touch. What interests you most?";
+    }
   };
 
-  const gradient = `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.secondary.main})`;
+  const handleHandoff = () => {
+    const handoffMessage: Message = {
+      id: messages.length + 1,
+      text: "Great! I've notified the portfolio owner about your interest. They'll reach out to you soon through your preferred contact method.",
+      sender: 'bot',
+      timestamp: new Date()
+    };
+    setMessages(prev => [...prev, handoffMessage]);
+    setShowHandoff(false);
+  };
 
   return (
     <>
@@ -59,13 +101,7 @@ const Chatbot: React.FC = () => {
         color="primary"
         aria-label="chat"
         onClick={() => setOpen(true)}
-        sx={{
-          position: 'fixed', bottom: 24, right: 24, zIndex: 1300,
-          background: gradient,
-          color: theme.palette.getContrastText(theme.palette.primary.main),
-          boxShadow: theme.shadows[6],
-          '&:hover': { boxShadow: theme.shadows[8], filter: 'brightness(1.05)' },
-        }}
+        className="fixed bottom-6 right-6 bg-gradient-to-r from-indigo-500 to-purple-600 shadow-2xl hover:shadow-3xl transition-all duration-300 z-50"
         size="large"
       >
         <ChatBubbleOutlineIcon />
@@ -77,93 +113,58 @@ const Chatbot: React.FC = () => {
         maxWidth="sm"
         fullWidth
         PaperProps={{
-          sx: {
-            borderRadius: 3,
-            bgcolor: alpha(theme.palette.background.paper, 0.95),
-            backdropFilter: 'blur(12px)',
-            border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
-            boxShadow: theme.shadows[10],
-            color: theme.palette.text.primary,
-          }
+          className: 'rounded-3xl bg-white/95 backdrop-blur-lg border border-white/20 shadow-2xl'
         }}
       >
-        <DialogTitle
-          sx={{
-            background: gradient,
-            color: theme.palette.getContrastText(theme.palette.primary.main),
-            borderTopLeftRadius: 12,
-            borderTopRightRadius: 12,
-          }}
-        >
+        <DialogTitle className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-t-3xl">
           <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h6" fontWeight={600}>Portfolio Assistant</Typography>
-            <IconButton onClick={() => setOpen(false)} sx={{ color: 'inherit' }}>
+            <Typography variant="h6" className="font-semibold">
+              Portfolio Assistant
+            </Typography>
+            <IconButton onClick={() => setOpen(false)} className="text-white">
               <CloseIcon />
             </IconButton>
           </Stack>
         </DialogTitle>
 
-        <DialogContent sx={{ p: 3 }}>
-          <Stack spacing={2} sx={{ maxHeight: 384, overflowY: 'auto' }}>
-            {messages.map((message) => {
-              const isUser = message.sender === 'user';
-              return (
-                <Stack key={message.id} direction="row" spacing={2} sx={{ justifyContent: isUser ? 'flex-end' : 'flex-start' }}>
-                  {!isUser && (
-                    <Avatar sx={{ width: 32, height: 32, background: gradient, color: theme.palette.getContrastText(theme.palette.primary.main) }}>🤖</Avatar>
-                  )}
-                  <Paper
-                    elevation={1}
-                    sx={{
-                      p: 1.5,
-                      maxWidth: 360,
-                      borderRadius: 3,
-                      ...(isUser
-                        ? {
-                            color: theme.palette.getContrastText(theme.palette.primary.main),
-                            background: gradient,
-                            boxShadow: theme.shadows[3],
-                          }
-                        : {
-                            bgcolor: alpha(theme.palette.background.paper, 0.6),
-                            color: theme.palette.text.primary,
-                            border: `1px solid ${alpha(theme.palette.divider, 0.2)}`,
-                          }),
-                    }}
-                  >
-                    <Typography variant="body2">{message.text}</Typography>
-                  </Paper>
-                </Stack>
-              );
-            })}
+        <DialogContent className="p-6">
+          <Stack spacing={2} className="max-h-96 overflow-y-auto">
+            {messages.map((message) => (
+              <Stack
+                key={message.id}
+                direction="row"
+                spacing={2}
+                className={message.sender === 'user' ? 'justify-end' : 'justify-start'}
+              >
+                {message.sender === 'bot' && (
+                  <Avatar className="bg-gradient-to-r from-indigo-500 to-purple-600 w-8 h-8">
+                    🤖
+                  </Avatar>
+                )}
+                <Paper
+                  className={`p-3 max-w-xs rounded-2xl ${
+                    message.sender === 'user'
+                      ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white'
+                      : 'bg-gray-100 text-gray-800'
+                  }`}
+                  elevation={1}
+                >
+                  <Typography variant="body2">{message.text}</Typography>
+                </Paper>
+              </Stack>
+            ))}
           </Stack>
 
           {showHandoff && (
-            <Paper
-              sx={{
-                mt: 2,
-                p: 2,
-                borderRadius: 3,
-                bgcolor: alpha(theme.palette.success.light, 0.15),
-                border: `1px solid ${alpha(theme.palette.success.main, 0.3)}`,
-                color: theme.palette.success.dark,
-              }}
-              elevation={0}
-            >
-              <Typography variant="body2" sx={{ mb: 1 }}>
+            <Paper className="mt-4 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl">
+              <Typography variant="body2" className="mb-2 text-emerald-800">
                 Would you like to speak directly with the portfolio owner?
               </Typography>
               <Button
-                onClick={() => { 
-                  setMessages(prev => [...prev, { id: prev.length + 1, text: "Great! I've notified the portfolio owner. They'll reach out soon.", sender: 'bot', timestamp: new Date() }]);
-                  setShowHandoff(false);
-                }}
+                onClick={handleHandoff}
                 variant="contained"
                 size="small"
-                sx={{
-                  background: `linear-gradient(90deg, ${theme.palette.success.main}, ${theme.palette.success.dark})`,
-                  color: theme.palette.getContrastText(theme.palette.success.main),
-                }}
+                className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
               >
                 Yes, connect me
               </Button>
@@ -171,25 +172,22 @@ const Chatbot: React.FC = () => {
           )}
         </DialogContent>
 
-        <DialogActions sx={{ p: 3, pt: 0 }}>
-          <Stack direction="row" spacing={2} sx={{ width: '100%' }}>
+        <DialogActions className="p-6 pt-0">
+          <Stack direction="row" spacing={2} className="w-full">
             <TextField
               fullWidth
               placeholder="Ask me anything..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               variant="outlined"
               size="small"
+              className="rounded-full"
             />
             <IconButton
               onClick={handleSendMessage}
               disabled={!inputValue.trim()}
-              sx={{
-                background: gradient,
-                color: theme.palette.getContrastText(theme.palette.primary.main),
-                '&:hover': { filter: 'brightness(1.05)' },
-              }}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:shadow-lg"
             >
               <ArrowForwardIosIcon />
             </IconButton>
