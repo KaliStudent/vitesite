@@ -20,7 +20,8 @@ export default createTheme({
   shape: { borderRadius: 16 },
   typography: {
     fontFamily: '"Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-  },
+  }
+    ),
     h1: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 700,
