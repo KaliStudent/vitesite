@@ -1,4 +1,3 @@
-import './src/styles/themes.css';
 import React from 'react';
 
 export default function KombaiWrapper({ children }: { children: React.ReactNode }) {
