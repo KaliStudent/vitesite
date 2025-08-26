@@ -158,18 +158,7 @@ const Navigation: React.FC = () => {
 };
 
 export default Navigation;
-sx is theme-aware; you get palette, breakpoints, etc. directly. 
-MUI
 
-Use alpha(theme.palette.*) for translucent backgrounds instead of bg-white/xx. 
-MUI
-
-Drawer paper is customized via PaperProps.sx. 
-MUI
-
-Replace src/components/Chatbot.tsx
-tsx
-Copy code
 import React, { useState } from 'react';
 import {
   Fab, Dialog, DialogTitle, DialogContent, DialogActions,
