@@ -8,6 +8,7 @@ if (!document.querySelector('link[href="/themes.css"]')) {
 
 // Pick any of the 20 themes
 document.documentElement.setAttribute('data-theme', 'sapphire-ice');
+import Example from './src/App.portfoliotemplate'
 import './index.css';
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary>
       <KombaiWrapper>
+          <Example/>
       </KombaiWrapper>
     </ErrorBoundary>
   </StrictMode>,
