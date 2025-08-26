@@ -1,5 +1,5 @@
 // Ensure the theme stylesheet is loaded even if index.html didn't link it
-if (!document.querySelector('link[href="/public/themes.css"]')) {
+if (!document.querySelector('link[href="/themes.css"]')) {
   const l = document.createElement('link');
   l.rel = 'stylesheet';
   l.href = '/themes.css';
