@@ -12,6 +12,9 @@ export default createTheme({
       secondary: '#9aa3b2',           // --muted
     },
     divider: '#222733',               // --border
+    background: { 
+      color: '#3B3D3F',
+    }
     background: {
       default: '#0f1115',             // --bg
       paper:   '#161a22',             // --surface
