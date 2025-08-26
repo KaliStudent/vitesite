@@ -1,52 +1,26 @@
+// src/theme.ts
 import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+export default createTheme({
   palette: {
-    primary: {
-      main: '#6366F1',
-      light: '#818CF8',
-      dark: '#4F46E5',
-      contrastText: '#FFFFFF'
-    },
-    secondary: {
-      main: '#EC4899',
-      light: '#F472B6',
-      dark: '#DB2777',
-      contrastText: '#FFFFFF'
-    },
-    success: {
-      main: '#10B981',
-      light: '#34D399',
-      dark: '#059669',
-      contrastText: '#FFFFFF'
-    },
+    mode: 'dark',
+    primary:   { main: '#8b5cf6' },   // --primary
+    secondary: { main: '#38bdf8' },   // --secondary
+    error:     { main: '#f43f5e' },   // close to accent for errors (optional)
     text: {
-      primary: '#1F2937',
-      secondary: '#6B7280'
+      primary:   '#e5e7eb',           // --text
+      secondary: '#9aa3b2',           // --muted
     },
+    divider: '#222733',               // --border
     background: {
-      default: '#FAFAFA',
-      paper: '#FFFFFF'
+      default: '#0f1115',             // --bg
+      paper:   '#161a22',             // --surface
     },
-    grey: {
-      50: '#F9FAFB',
-      100: '#F3F4F6',
-      200: '#E5E7EB',
-      300: '#D1D5DB',
-      400: '#9CA3AF',
-      500: '#6B7280',
-      600: '#4B5563',
-      700: '#374151',
-      800: '#1F2937',
-      900: '#111827'
-    },
-    common: {
-      black: '#000000',
-      white: '#FFFFFF'
-    }
   },
+  shape: { borderRadius: 16 },
   typography: {
     fontFamily: '"Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+  },
     h1: {
       fontFamily: '"Space Grotesk", sans-serif',
       fontWeight: 700,
