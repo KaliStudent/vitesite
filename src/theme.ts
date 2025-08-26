@@ -14,11 +14,10 @@ export default createTheme({
     divider: '#222733',               // --border
     background: { 
       color: '#3B3D3F',
-    }
-    background: {
       default: '#0f1115',             // --bg
-      paper:   '#161a22',             // --surface
-    },
+      paper:   '#161a22',  
+    }
+
   },
   shape: { borderRadius: 16 },
   typography: {
