@@ -1,8 +1,8 @@
 // Ensure the theme stylesheet is loaded even if index.html didn't link it
-if (!document.querySelector('link[href="/themes.css"]')) {
+if (!document.querySelector('link[href="themes.css"]')) {
   const l = document.createElement('link');
   l.rel = 'stylesheet';
-  l.href = '/themes.css';
+  l.href = 'themes.css';
   document.head.appendChild(l);
 }
 
@@ -14,7 +14,7 @@ import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import KombaiWrapper from './KombaiWrapper'
 import ErrorBoundary from '@kombai/react-error-boundary'
-import './public/themes.css';
+import 'themes.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
