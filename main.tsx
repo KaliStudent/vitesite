@@ -4,7 +4,7 @@ import Example from './src/App.portfoliotemplate'
 import KombaiWrapper from './KombaiWrapper'
 import ErrorBoundary from '@kombai/react-error-boundary'
 import './index.css'
-import './styles/themes.css';
+import './src/styles/themes.css';
 document.documentElement.setAttribute('data-theme', 'royal-slate'); // pick any of the 20
 
 createRoot(document.getElementById('root')!).render(
