@@ -208,3 +208,5 @@ html, body { background-color: var(--bg); color: var(--text); }
 .btn.secondary { background-color: var(--secondary); }
 .link { color: var(--accent); }
 .muted { color: var(--muted); }
+
+html, body { background: var(--bg) !important; color: var(--text) !important; }
